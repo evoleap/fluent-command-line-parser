@@ -1,0 +1,40 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- develop
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+jobs:
+- job: BuildArtifact
+  variables:
+    versionNumber: ''
+    workingVersion: ''
+    symVer: ''
+    isRelease: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+    verPrefix: ''
+    verSuffix: ''
+  steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'test'
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+  - task: NuGetCommand@2
+    inputs:
+      command: 'push'
+      packagesToPush: '**/*.nupkg;!**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '4e2dc0fe-c532-420e-8889-18ca9bea1ff1'
+      versioningScheme: byEnvVar
+      versionEnvVar: 'symVer'

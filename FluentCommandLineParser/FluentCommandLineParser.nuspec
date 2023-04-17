@@ -11,13 +11,13 @@
     <description>A simple, strongly typed .NET C# command line parser library using a fluent easy to use interface</description>
     <releaseNotes>https://github.com/fclp/fluent-command-line-parser/wiki/Release-Notes</releaseNotes>
     <copyright>Copyright Simon Williams 2012 - 2013</copyright>
-    <tags>fluent command line parser commandline c# net35</tags>
+    <tags>fluent command line parser commandline c# netstandard2.0</tags>
     <dependencies>
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\Release\FluentCommandLineParser.dll" target="lib\net35" />
-    <file src="bin\Release\FluentCommandLineParser.pdb" target="lib\net35" />
-    <file src="bin\Release\FluentCommandLineParser.xml" target="lib\net35" />
+    <file src="bin\Release\netstandard2.0\FluentCommandLineParser.dll" target="lib\netstandard2.0" />
+    <file src="bin\Release\netstandard2.0\FluentCommandLineParser.pdb" target="lib\netstandard2.0" />
+    <file src="bin\Release\netstandard2.0\FluentCommandLineParser.xml" target="lib\netstandard2.0" />
   </files>
 </package>

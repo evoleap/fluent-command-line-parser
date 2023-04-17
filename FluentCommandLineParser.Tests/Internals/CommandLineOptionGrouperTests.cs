@@ -25,7 +25,6 @@
 using Fclp.Internals;
 using Fclp.Internals.Parsing;
 using Machine.Specifications;
-using Ploeh.AutoFixture;
 
 namespace Fclp.Tests.Internals
 {
@@ -38,8 +37,8 @@ namespace Fclp.Tests.Internals
 
 		    Establish context = () =>
 		    {
-		        fixture.Register(() => specialCharacters);
-		        CreateSut();
+                fixture.Customize<SpecialCharacters>(c => c.FromFactory(() => specialCharacters).OmitAutoProperties());
+                CreateSut();
 		    };
 		}
 

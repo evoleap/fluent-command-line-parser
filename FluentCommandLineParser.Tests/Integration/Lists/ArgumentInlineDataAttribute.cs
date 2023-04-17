@@ -22,21 +22,28 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
+using System.Collections.Generic;
+using System.Reflection;
+using Xunit;
 using Xunit.Extensions;
+using Xunit.Sdk;
 
 namespace Fclp.Tests.Integration
 {
-	public class ArgumentInlineDataAttribute : InlineDataAttribute
+	public class ArgumentInlineDataAttribute : DataAttribute
 	{
-		public ArgumentInlineDataAttribute(string args, object obj)
-			: base(args, obj)
+        private InlineDataAttribute _internalData;
+
+        public ArgumentInlineDataAttribute(string args, object obj)
 		{
+			_internalData = new InlineDataAttribute(args, obj);
 		}
 
 		public ArgumentInlineDataAttribute(string args, params string[] values)
-			: base(args, values)
 		{
+            _internalData = new InlineDataAttribute(args, values);
+        }
 
-		}
-	}
+        public override IEnumerable<object[]> GetData(MethodInfo testMethod) => _internalData.GetData(testMethod);
+    }
 }

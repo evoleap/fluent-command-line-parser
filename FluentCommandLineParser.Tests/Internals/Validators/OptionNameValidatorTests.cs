@@ -28,7 +28,6 @@ using Fclp.Internals;
 using Fclp.Internals.Validators;
 using Machine.Specifications;
 using Moq;
-using Ploeh.AutoFixture;
 using It = Machine.Specifications.It;
 
 namespace Fclp.Tests.Internals.Validators
@@ -42,7 +41,7 @@ namespace Fclp.Tests.Internals.Validators
 
 		    Establish context = () =>
 		    {
-		        fixture.Register(() => specialCharacters);
+				fixture.Customize<SpecialCharacters>(c => c.FromFactory(() => specialCharacters).OmitAutoProperties());
 		        CreateSut();
 		    };
         }

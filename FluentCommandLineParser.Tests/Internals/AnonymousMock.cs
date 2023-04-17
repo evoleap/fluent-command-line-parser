@@ -25,9 +25,9 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using AutoFixture;
+using AutoFixture.Kernel;
 using Moq;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.Kernel;
 
 namespace Fclp.Tests.Internals
 {

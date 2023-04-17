@@ -22,30 +22,37 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Fclp.Internals.Extensions;
 using Fclp.Internals.Parsing;
 using Machine.Specifications;
 using Xunit;
 using Xunit.Extensions;
+using Xunit.Sdk;
 
 namespace Fclp.Tests.Internals
 {
-	public class SingleOptionInlineDataAttribute : InlineDataAttribute
+	public class SingleOptionInlineDataAttribute : DataAttribute
 	{
-		public SingleOptionInlineDataAttribute(
+		private InlineDataAttribute _internalData;
+        public SingleOptionInlineDataAttribute(
 			string arguments,
 			string expectedKeyChar,
 			string expectedKey,
 			string expectedValue) 
-			: base(string.Format(arguments, expectedValue.WrapInDoubleQuotes()), expectedKeyChar, expectedKey, expectedValue)
 		{
-		}
-	}
+			_internalData = new InlineDataAttribute(string.Format(arguments, expectedValue.WrapInDoubleQuotes()), expectedKeyChar, expectedKey, expectedValue);
+        }
 
-	public class DoubleOptionInlineDataAttribute : InlineDataAttribute
+        public override IEnumerable<object[]> GetData(MethodInfo testMethod) => _internalData.GetData(testMethod);
+    }
+
+	public class DoubleOptionInlineDataAttribute : DataAttribute
 	{
-		public DoubleOptionInlineDataAttribute(
+        private InlineDataAttribute _internalData;
+        public DoubleOptionInlineDataAttribute(
 			string arguments,
 			string firstExpectedKeyChar,
 			string firstExpectedKey,
@@ -53,18 +60,21 @@ namespace Fclp.Tests.Internals
 			string secondExpectedKeyChar,
 			string secondExpectedKey,
 			string secondExpectedValue)
-			: base(string.Format(arguments, firstExpectedValue.WrapInDoubleQuotes(), secondExpectedValue.WrapInDoubleQuotes()), 
-			firstExpectedKeyChar, 
-			firstExpectedKey, 
-			firstExpectedValue, 
-			secondExpectedKeyChar, 
-			secondExpectedKey, 
-			secondExpectedValue)
 		{
-		}
-	}
+			_internalData = new InlineDataAttribute(
+				string.Format(arguments, firstExpectedValue.WrapInDoubleQuotes(), secondExpectedValue.WrapInDoubleQuotes()),
+				firstExpectedKeyChar,
+				firstExpectedKey,
+				firstExpectedValue,
+				secondExpectedKeyChar,
+				secondExpectedKey,
+				secondExpectedValue);
+        }
 
-	public class CommandLineParserEngineMark2TestsXUnit: TestContextBase<CommandLineParserEngineMark2>
+        public override IEnumerable<object[]> GetData(MethodInfo testMethod) => _internalData.GetData(testMethod);
+    }
+
+    public class CommandLineParserEngineMark2TestsXUnit: TestContextBase<CommandLineParserEngineMark2>
 	{
 		[Theory]
 		[SingleOptionInlineData("-f", "-", "f", null)]

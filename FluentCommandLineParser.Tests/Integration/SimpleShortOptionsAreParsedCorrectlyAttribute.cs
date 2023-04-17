@@ -23,12 +23,21 @@
 #endregion
 
 using Fclp.Tests.FluentCommandLineParser;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Xunit;
 using Xunit.Extensions;
+using Xunit.Sdk;
 
 namespace Fclp.Tests.Integration
 {
-    public class SimpleShortOptionsAreParsedCorrectlyAttribute : InlineDataAttribute
+    public class SimpleShortOptionsAreParsedCorrectlyAttribute : DataAttribute
     {
+        private InlineDataAttribute _internalData;
+
+        public SimpleShortOptionsAreParsedCorrectlyAttribute(string arguments) : this(arguments, null) { }
+
         public SimpleShortOptionsAreParsedCorrectlyAttribute(
             string arguments,
             bool? expectedBoolean = null,
@@ -37,9 +46,10 @@ namespace Fclp.Tests.Integration
             long? expectedInt64 = null,
             double? expectedDouble = null,
             TestEnum? expectedEnum = null)
-            : base(arguments, expectedBoolean, expectedString, expectedInt32, expectedInt64, expectedDouble, expectedEnum)
         {
-            
+            _internalData = new InlineDataAttribute(arguments, expectedBoolean, expectedString, expectedInt32, expectedInt64, expectedDouble, expectedEnum);
         }
+
+        public override IEnumerable<object[]> GetData(MethodInfo testMethod) => _internalData.GetData(testMethod);
     }
 }

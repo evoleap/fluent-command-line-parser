@@ -25,14 +25,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AutoFixture;
+using AutoFixture.AutoMoq;
 using Fclp.Internals.Extensions;
 using Machine.Specifications;
 using Moq;
-using Ploeh.AutoFixture;
-using Ploeh.AutoFixture.AutoMoq;
+using Xunit;
 
 namespace Fclp.Tests.Internals
 {
+	[CollectionDefinition(nameof(NonParallelCollectionDefinition), DisableParallelization = true)]
+	public class NonParallelCollectionDefinition { }
+
+	[Collection(nameof(NonParallelCollectionDefinition))]
 	public abstract class TestContextBase<TSut> where TSut : class
 	{
 		protected static TSut sut;

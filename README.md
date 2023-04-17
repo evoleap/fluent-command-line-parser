@@ -2,15 +2,13 @@ Fluent Command Line Parser
 ==========================
 A simple, strongly typed .NET C# command line parser library using a fluent easy to use interface.
 
-[![TeamCity Badge](https://img.shields.io/teamcity/http/teamcity.jetbrains.com/s/bt952.svg)](https://teamcity.jetbrains.com/viewType.html?buildTypeId=bt952)
-[![Nuget Badge](https://img.shields.io/nuget/dt/FluentCommandLineParser.svg)](https://nuget.org/packages/FluentCommandLineParser)
-
+This fork is a .NET Standard 2.0 DLL instead of a .NET Framework 3.5 version.
 	  
 ### Download
 
 See what's new in [v1.4.3](https://github.com/fclp/fluent-command-line-parser/wiki/Roadmap).
 
-You can download the latest release from [CodeBetter's TeamCity server](http://teamcity.codebetter.com/project.html?projectId=project314)
+The NuGet package is in a private artifact repository (for now), so the below is for the old .NET Framework 3.5 version.
 
 You can also install using [NuGet](http://nuget.org/packages/FluentCommandLineParser/) via the command line
 ```

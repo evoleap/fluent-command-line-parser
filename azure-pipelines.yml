@@ -26,10 +26,10 @@ jobs:
   steps:
   - task: DotNetCoreCLI@2
     inputs:
-      command: 'test'
+      command: 'build'
   - task: DotNetCoreCLI@2
     inputs:
-      command: 'build'
+      command: 'test'
   - task: NuGetCommand@2
     inputs:
       command: 'push'
